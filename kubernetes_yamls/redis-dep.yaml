@@ -1,0 +1,44 @@
+---
+# Reddis Deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: sampleapp
+    name: redis
+    env: demo
+  name: redis-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: redis
+        app: sampleapp
+    spec:
+      containers:
+        - name: redis-pod
+          image: redis:latest
+          ports:
+            - containerPort: 6379
+              protocol: TCP
+
+# redis service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  labels:
+    app: sampleapp
+    name: redis
+    env: demo
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 6379
+    name: redis
+    targetPort: 6379
+  selector:
+    name: redis
+    app: sampleapp
