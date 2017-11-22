@@ -1,0 +1,45 @@
+---
+# flask app deployment
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: sampleapp
+    name: web
+    env: demo
+  name: web-deployment
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: web
+        app: sampleapp
+    spec:
+      containers:
+        - name: web
+          image: abhishekk/sampleapp
+          ports:
+            - containerPort: 5000
+              name: http
+              protocol: TCP
+
+# app service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  labels:
+    app: sampleapp
+    name: web
+    env: demo
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+    targetPort: 5000
+    protocol: TCP
+  selector:
+    name: web
+    app: sampleapp
