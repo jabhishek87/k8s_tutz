@@ -21,7 +21,7 @@ spec:
           image: abhishekk/sampleapp
           ports:
             - containerPort: 5000
-              name: http
+              name: app-web-port
               protocol: TCP
 
 # app service
@@ -35,10 +35,11 @@ metadata:
     name: web
     env: demo
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
-  - port: 5000
-    targetPort: 5000
+  - port: 32001
+    nodePort: 32001
+    targetPort: app-web-port
     protocol: TCP
   selector:
     name: web

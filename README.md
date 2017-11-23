@@ -21,5 +21,7 @@ docker pull redis
 ``` kubectl create -f kubernetes_yamls/redis-dep.yaml ```
 ``` kubectl create -f kubernetes_yamls/web-dep.yaml ```
 
-# to access web port
-``` kubectl describe svc web | grep NodePort ```
+# to access web for minikube run
+    ``` minikube service web --url ```
+
+    here you will alwasys see that web port is static to  ``` 32001 ```

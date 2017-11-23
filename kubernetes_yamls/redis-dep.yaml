@@ -22,6 +22,7 @@ spec:
           ports:
             - containerPort: 6379
               protocol: TCP
+              name: redis-port
 
 # redis service
 ---
@@ -34,11 +35,9 @@ metadata:
     name: redis
     env: demo
 spec:
-  type: LoadBalancer
   ports:
   - port: 6379
-    name: redis
-    targetPort: 6379
+    targetPort: redis-port
   selector:
     name: redis
     app: sampleapp
