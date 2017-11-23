@@ -1,27 +1,31 @@
 # k8s_tutz
 ``` docker to kube tutorial ```
 
-# download docker images
-docker pull redis
-``` docker pull python:2.7 ```
+As we are going to build new version of image if you see app.py i have added v2
+and in dbbuild.sh i have updated the tag with V2 to build run
+```./dbuild.sh ```
 
 
-
-# Build the containers
-
-``` sh dbuild.sh ```
-
-# if you want to run through docker run
-``` docker-compose up ```
-
-# to delete run
-``` docker-compose down ```
-
-# to create k8s deployment run
+# start the deployments with older image
 ``` kubectl create -f kubernetes_yamls/redis-dep.yaml ```
-``` kubectl create -f kubernetes_yamls/web-dep.yaml ```
+``` kubectl create -f kubernetes_yamls/web-dep.yaml --record ```
 
-# to access web for minikube run
-    ``` minikube service web --url ```
+# check revision history
+``` kubectl rollout history deployment/web-deployment ```
 
-    here you will alwasys see that web port is static to  ``` 32001 ```
+# update image version for web container
+``` kubectl set image deployment/web-deployment web=abhishekk/sampleapp:v2 ```
+
+# check the status again
+``` kubectl rollout history deployment/web-deployment ```
+
+# now if you do
+``` http:<ip>:32001 ```
+you wil see the Hello Container World! I have been seen 5 times.
+V2
+
+# again you can rollout to new older version
+``` kubectl rollout undo deployment/web-deployment ```
+
+# go back to specfic revision
+``` kubectl rollout undo deployment/web-deployment --to-revision=3 ```
