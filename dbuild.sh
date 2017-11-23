@@ -1,1 +1,1 @@
-docker build . -t abhishekk/sampleapp
+docker build . -t abhishekk/sampleapp:v2

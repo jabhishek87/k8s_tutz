@@ -3,21 +3,21 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
+  name: web-deployment
   labels:
     app: sampleapp
     name: web
-    env: demo
-  name: web-deployment
 spec:
-  replicas: 1
+  replicas: 2
+  revisionHistoryLimit: 100
   template:
     metadata:
       labels:
-        name: web
         app: sampleapp
+        name: web
     spec:
       containers:
-        - name: web
+        - name: web-image
           image: abhishekk/sampleapp
           ports:
             - containerPort: 5000
@@ -29,11 +29,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: web
+  name: web-deployment
   labels:
     app: sampleapp
     name: web
-    env: demo
 spec:
   type: NodePort
   ports:

@@ -10,6 +10,7 @@ metadata:
   name: redis-deployment
 spec:
   replicas: 1
+  revisionHistoryLimit: 100
   template:
     metadata:
       labels:

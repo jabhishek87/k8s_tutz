@@ -8,7 +8,7 @@ redis = Redis(host=os.environ.get('REDIS_HOST', 'redis'), port=6379)
 @app.route('/')
 def hello():
     redis.incr('hits')
-    return 'Hello Container World! I have been seen %s times.\n' % redis.get('hits')
+    return 'Hello Container World! I have been seen %s times.\n V2' % redis.get('hits')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
