@@ -29,3 +29,18 @@ V2
 
 # go back to specfic revision
 ``` kubectl rollout undo deployment/web-deployment --to-revision=3 ```
+
+
+
+
+
+# now we are going to deploy wordpress stateless app
+
+why stateless because it doesnot save the data , when container goes down, data lost
+
+
+```  kubectl create -f kubernetes_yamls/wordpress/wordpress-secrets.yml --record ```
+
+```  kubectl create -f kubernetes_yamls/wordpress/wordpress-service.yml --record ```
+
+```  kubectl create -f kubernetes_yamls/wordpress/wordpress-single-deployment-no-volumes.yml --record ```
