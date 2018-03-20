@@ -23,3 +23,6 @@ docker pull redis
 
 # to access web port
 ``` kubectl describe svc web | grep NodePort ```
+
+for more info checkout 
+https://github.com/wardviaene/kubernetes-course
